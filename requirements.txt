@@ -8,3 +8,4 @@ requests>=2.31
 prophet>=1.1 ; platform_system != 'Windows'
 
 streamlit>=1.36
+prophet==1.1.5
