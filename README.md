@@ -5,7 +5,9 @@ This project analyzes real-time and historical weather data to simulate and visu
 Using live data from the **OpenWeatherMap API**, it explores temperature variations, rainfall trends, and urban heat zones — applying **machine learning (DBSCAN & KMeans)** and **forecasting (Prophet)** to predict climate patterns and identify risk-prone regions.
 
 The goal is to help understand how +1.5°C and +2.0°C global warming scenarios could affect city-level climate dynamics, guiding sustainability and resilience planning.
-
+For the original notebook and report PDF, see docs:
+PDF - https://drive.google.com/file/d/1rocu_2cXfBJ0hv2FvzIJS3kDmnJoTQT4/view?usp=sharing
+PYTHON NOTEBOOK - https://drive.google.com/file/d/1s3Y-wWnGVfmtHFROr_9_GmzHpjcXQMrL/view?usp=sharing
 ---
 
 ## Project Overview
