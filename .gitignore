@@ -14,3 +14,8 @@ __pycache__/
 figures/*.png
 data/*.parquet
 data/*.feather
+
+# Allowlist 3 public images for docs/README
+!figures/hero_kmeans.png
+!figures/hero_dbscan.png
+!figures/hero_forecast.png
