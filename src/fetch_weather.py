@@ -1,27 +1,39 @@
 import os
 import requests
-from dotenv import load_dotenv
+import pandas as pd
 
-load_dotenv()
+def get_5day_forecast(lat=-37.8136, lon=144.9631, api_key=None, units="metric"):
+    """
+    OpenWeatherMap 5-day/3-hour forecast.
+    Returns a DataFrame indexed by datetime with columns:
+    temp (°C), humidity (%), rain_mm_3h (mm in the 3h bucket)
+    """
+    # supports .env locally and Streamlit Cloud secrets
+    api_key = api_key or os.getenv("OWM_API_KEY")
+    if not api_key:
+        # Streamlit secrets support
+        try:
+            import streamlit as st
+            api_key = st.secrets.get("OWM_API_KEY", None)
+        except Exception:
+            pass
+    if not api_key:
+        raise RuntimeError("Missing OWM_API_KEY (set in .env or Streamlit secrets).")
 
-OWM_API_KEY = os.getenv("OWM_API_KEY")
-OWM_BASE_URL = os.getenv("OWM_BASE_URL", "https://api.openweathermap.org/data/2.5/weather")
+    url = "https://api.openweathermap.org/data/2.5/forecast"
+    params = {"lat": lat, "lon": lon, "appid": api_key, "units": units}
+    resp = requests.get(url, params=params, timeout=20)
+    resp.raise_for_status()
+    data = resp.json()
 
-def fetch_openweather(city="Melbourne,AU", units="metric"):
-    if not OWM_API_KEY:
-        raise RuntimeError("Missing OWM_API_KEY in environment (.env)")
-    params = {"q": city, "appid": OWM_API_KEY, "units": units}
-    r = requests.get(OWM_BASE_URL, params=params, timeout=15)
-    r.raise_for_status()
-    j = r.json()
-    # minimal normalized record
-    rec = {
-        "city": city,
-        "datetime": pd.Timestamp.utcnow().tz_localize(None),
-        "temp_c": j["main"]["temp"],
-        "feels_like_c": j["main"]["feels_like"],
-        "humidity": j["main"]["humidity"],
-        "lat": j["coord"]["lat"],
-        "lon": j["coord"]["lon"],
-    }
-    return rec
+    rows = []
+    for item in data["list"]:
+        dt = pd.to_datetime(item["dt"], unit="s")
+        rows.append({
+            "dt": dt,
+            "temp": item["main"]["temp"],
+            "humidity": item["main"]["humidity"],
+            "rain_mm_3h": item.get("rain", {}).get("3h", 0.0)
+        })
+    df = pd.DataFrame(rows).set_index("dt").sort_index()
+    return df
