@@ -7,4 +7,3 @@ requests>=2.31
 # Prophet is optional; install as needed (can be heavy)
 prophet==1.1.5
 streamlit>=1.36
-
