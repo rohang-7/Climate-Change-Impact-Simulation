@@ -6,8 +6,8 @@ Using live data from the **OpenWeatherMap API**, it explores temperature variati
 
 The goal is to help understand how +1.5°C and +2.0°C global warming scenarios could affect city-level climate dynamics, guiding sustainability and resilience planning.
 For the original notebook and report PDF, see docs:
-PDF - https://drive.google.com/file/d/1rocu_2cXfBJ0hv2FvzIJS3kDmnJoTQT4/view?usp=sharing
-PYTHON NOTEBOOK - https://drive.google.com/file/d/1s3Y-wWnGVfmtHFROr_9_GmzHpjcXQMrL/view?usp=sharing
+###  PDF - https://drive.google.com/file/d/1rocu_2cXfBJ0hv2FvzIJS3kDmnJoTQT4/view?usp=sharing
+###  PYTHON NOTEBOOK - https://drive.google.com/file/d/1s3Y-wWnGVfmtHFROr_9_GmzHpjcXQMrL/view?usp=sharing
 ---
 
 ## Project Overview
